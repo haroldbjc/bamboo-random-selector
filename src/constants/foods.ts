@@ -1,0 +1,25 @@
+const foods = [
+  "🍔 Burger",
+  "🥖 Sandwich",
+  "🍕 Pizza",
+  "🌭 Hot Dog",
+  "🥪 Sandwich",
+  "🍳 Hamburger",
+  "🥙 Stuffed Flatbread",
+  "🍗 Poultry Leg",
+  "🥟 Dumpling",
+  "🥫 Canned Fruit",
+  "🍿 Popcorn",
+  "🧀 Cheese Wedge",
+  "🧂 Salsa",
+  "🌮 Taco",
+  "🌯 Burrito",
+  "🥗 Green Salad",
+  "🍜 Ramen",
+  "🍣 Sushi",
+  "🍠 Roasted Sweet Potato",
+  "🍤 Fried Shrimp",
+  "🍟 French Fries",
+];
+
+export default foods;
