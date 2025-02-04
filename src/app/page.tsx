@@ -1,6 +1,6 @@
 "use client";
 
-import { AlertCircle, Dices, RotateCcw } from "lucide-react";
+import { AlertCircle, Dices, RotateCcw, UtensilsCrossed } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
 
 import DishList, { DishType } from "@/components/DishList";
@@ -75,7 +75,13 @@ export default function Home() {
     <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
       <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
         <div className="flex flex-col gap-4 items-center">
-          <h1 className="text-4xl font-bold text-center">新竹园 Bamboo</h1>
+          <h1 className="text-4xl font-bold text-center flex flex-row gap-2 items-center">
+            新竹园
+            <span>
+              <UtensilsCrossed />
+            </span>
+            Bamboo
+          </h1>
           <RandomPicker ref={picker1Ref} order={1} menuList={menuList} />
           <RandomPicker ref={picker2Ref} order={2} menuList={menuList} />
           <RandomPicker ref={picker3Ref} order={3} menuList={menuList} />
