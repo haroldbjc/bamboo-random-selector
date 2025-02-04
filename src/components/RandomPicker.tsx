@@ -55,13 +55,19 @@ const RandomPicker = forwardRef<RandomPickerRef, Props>(
         {isLoading ? (
           <Skeleton className="h-[36px] w-[216px] rounded-xl" />
         ) : (
-          <Input readOnly value={selectedFood} className="w-[216px] " />
+          <Input
+            readOnly
+            value={selectedFood}
+            className="w-[216px] "
+            aria-label={`菜肴 ${order}`}
+          />
         )}
 
         <Button
           onClick={handleClick}
           size="icon"
           disabled={menuList.length === 0}
+          aria-label={`随机选择菜肴 ${order}`}
         >
           {dice()}
         </Button>
