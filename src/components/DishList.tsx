@@ -14,7 +14,7 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Checkbox } from "./ui/checkbox";
+import { Checkbox } from "@/components/ui/checkbox";
 import { FoodType } from "@/constants/foods";
 
 export type DishType = FoodType & {

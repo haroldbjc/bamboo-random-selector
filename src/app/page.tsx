@@ -1,12 +1,13 @@
 "use client";
 
-import { useRef, useState, useEffect, useMemo } from "react";
-import RandomPicker, { RandomPickerRef } from "@/components/RandomPicker";
-import { Button } from "@/components/ui/button";
-import { RotateCcw, Dices, AlertCircle } from "lucide-react";
+import { AlertCircle, Dices, RotateCcw } from "lucide-react";
+import { useEffect, useMemo, useRef, useState } from "react";
+
 import DishList, { DishType } from "@/components/DishList";
-import foods from "@/constants/foods";
+import RandomPicker, { RandomPickerRef } from "@/components/RandomPicker";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Button } from "@/components/ui/button";
+import foods from "@/constants/foods";
 
 export default function Home() {
   const [list, setList] = useState<DishType[]>(() => {

@@ -1,8 +1,9 @@
+import { forwardRef, useImperativeHandle, useState } from "react";
+import { Dice1, Dice2, Dice3 } from "lucide-react";
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
-import { forwardRef, useImperativeHandle, useState } from "react";
-import { Dice1, Dice2, Dice3 } from "lucide-react";
 
 type Props = {
   order: number;
