@@ -1,6 +1,6 @@
 export type FoodType = {
   name: string;
-  type: 'vegetable' | 'meat';
+  type: "vegetable" | "meat";
 };
 
 const foods: FoodType[] = [
