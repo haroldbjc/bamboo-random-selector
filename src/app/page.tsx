@@ -8,8 +8,10 @@ import RandomPicker, { RandomPickerRef } from "@/components/RandomPicker";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import foods from "@/constants/foods";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export default function Home() {
+  const [loading, setLoading] = useState(true);
   const [list, setList] = useState<DishType[]>(() => {
     if (typeof window !== "undefined") {
       const savedList = localStorage.getItem("dishList");
@@ -40,23 +42,53 @@ export default function Home() {
     () => list.filter((item) => item.checked).length === 0,
     [list],
   );
+
   const [menuList, setMenuList] = useState<string[]>(
     list.map((item) => item.name),
   );
+  const [pickedFoods, setPickedFoods] = useState<string[]>([]);
+  const pickedFoodsRef = useRef<string[]>(pickedFoods);
+
   const picker1Ref = useRef<RandomPickerRef>(null);
   const picker2Ref = useRef<RandomPickerRef>(null);
   const picker3Ref = useRef<RandomPickerRef>(null);
 
   const resetPickers = () => {
+    setPickedFoods([]);
+    pickedFoodsRef.current = [];
     picker1Ref.current?.reset();
     picker2Ref.current?.reset();
     picker3Ref.current?.reset();
   };
 
   const randomAll = () => {
+    setPickedFoods([]);
+    pickedFoodsRef.current = [];
     picker1Ref.current?.click();
     picker2Ref.current?.click();
     picker3Ref.current?.click();
+  };
+
+  const randomOne = (originalFood: string) => {
+    const updatedPickedFoods = pickedFoodsRef.current.filter(
+      (food) => food !== originalFood,
+    );
+    const availableFoods = menuList.filter(
+      (food) => !updatedPickedFoods.includes(food),
+    );
+
+    if (availableFoods.length === 0) {
+      pickedFoodsRef.current = [];
+      setPickedFoods([]);
+      return randomOne(originalFood);
+    }
+
+    const pickedFood =
+      availableFoods[Math.floor(Math.random() * availableFoods.length)];
+    pickedFoodsRef.current = [...updatedPickedFoods, pickedFood];
+    setPickedFoods(pickedFoodsRef.current);
+
+    return pickedFood;
   };
 
   const setChecked = (id: number) => {
@@ -69,6 +101,7 @@ export default function Home() {
 
   useEffect(() => {
     setMenuList(list.filter((item) => item.checked).map((item) => item.name));
+    setLoading(false);
   }, [list]);
 
   return (
@@ -82,11 +115,23 @@ export default function Home() {
             </span>
             Bamboo
           </h1>
-          <RandomPicker ref={picker1Ref} order={1} menuList={menuList} />
-          <RandomPicker ref={picker2Ref} order={2} menuList={menuList} />
-          <RandomPicker ref={picker3Ref} order={3} menuList={menuList} />
+          {loading ? (
+            <Skeleton className="h-[36px] w-[216px] rounded-xl" />
+          ) : (
+            <>
+              {menuList.length > 0 && (
+                <RandomPicker ref={picker1Ref} order={1} click={randomOne} />
+              )}
+              {menuList.length > 1 && (
+                <RandomPicker ref={picker2Ref} order={2} click={randomOne} />
+              )}
+              {menuList.length > 2 && (
+                <RandomPicker ref={picker3Ref} order={3} click={randomOne} />
+              )}{" "}
+            </>
+          )}
           <div className="flex flex-row gap-4 items-center">
-            <Button variant="outline" onClick={resetPickers}>
+            <Button variant="outline" onClick={resetPickers} disabled={isEmpty}>
               <RotateCcw /> 重置
             </Button>
             <Button onClick={randomAll} disabled={isEmpty}>

@@ -7,7 +7,8 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 type Props = {
   order: number;
-  menuList: string[];
+
+  click: (arg0: string) => string;
 };
 
 export interface RandomPickerRef {
@@ -16,16 +17,17 @@ export interface RandomPickerRef {
 }
 
 const RandomPicker = forwardRef<RandomPickerRef, Props>(
-  ({ order, menuList }, ref) => {
+  ({ order, click }, ref) => {
     const [isLoading, setIsLoading] = useState(false);
     const [selectedFood, setSelectedFood] = useState(`菜肴 ${order}`);
 
     const handleClick = () => {
       setIsLoading(true);
-      setSelectedFood(menuList[Math.floor(Math.random() * menuList.length)]);
+      const food = click(selectedFood);
       setTimeout(() => {
         setIsLoading(false);
       }, 1000);
+      if (food) setSelectedFood(food);
     };
 
     useImperativeHandle(ref, () => ({
@@ -66,7 +68,6 @@ const RandomPicker = forwardRef<RandomPickerRef, Props>(
         <Button
           onClick={handleClick}
           size="icon"
-          disabled={menuList.length === 0}
           aria-label={`随机选择菜肴 ${order}`}
         >
           {dice()}

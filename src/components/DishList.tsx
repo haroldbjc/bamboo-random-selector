@@ -31,6 +31,7 @@ type Dish = {
 export default function DishList({ list, setChecked }: Dish) {
   const vegetables = list.filter((item) => item.type === "vegetable");
   const meats = list.filter((item) => item.type === "meat");
+
   return (
     <Drawer>
       <DrawerTrigger asChild>
